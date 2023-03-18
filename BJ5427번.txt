@@ -1,0 +1,97 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define X first
+#define Y second
+
+string board[1005];
+
+int dist_1[1005][1005];
+int dist_2[1005][1005];
+
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+
+
+int main(void)
+{
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int t;
+    cin >> t;
+    while(t--){
+        bool endflag = false;
+
+        queue<pair<int, int>> Q1 = {};
+        queue<pair<int, int>> Q2 = {};
+
+        int w, h;
+        cin >> w >> h;
+
+        for(int i = 0; i < h; i++){
+            fill(dist_1[i], dist_1[i] + w, -1);
+            fill(dist_2[i], dist_2[i] + w, -1);
+        }
+
+        for(int i = 0; i < h; i++){
+            cin >> board[i];
+        }
+
+        for(int i = 0; i < h; i++){
+            for(int j = 0; j < w; j++){
+                if(board[i][j] == '*'){
+                    Q1.push({i,j});
+                    dist_1[i][j] = 0;
+                }
+                if(board[i][j] == '@'){
+                    Q2.push({i,j});
+                    dist_2[i][j] = 0;
+                }
+            }
+        }
+
+        while(!Q1.empty()){
+            auto cur = Q1.front(); Q1.pop();
+            for(int dir = 0; dir < 4; dir++){
+                int nx = cur.X + dx[dir];
+                int ny = cur.Y + dy[dir];
+
+                if(nx < 0 || nx >= h || ny < 0 || ny >= w) continue;
+                if(board[nx][ny] == '#') continue;
+                if(dist_1[nx][ny] >= 0) continue;
+                dist_1[nx][ny] = dist_1[cur.X][cur.Y] + 1;
+                Q1.push({nx, ny});
+            }
+
+        }
+
+        while(!Q2.empty()){
+            auto cur = Q2.front(); Q2.pop();
+
+            for(int dir = 0; dir < 4; dir++){
+                int nx = cur.X + dx[dir];
+                int ny = cur.Y + dy[dir];
+
+                if(nx < 0 || nx >= h || ny < 0 || ny >= w){
+                    cout << dist_2[cur.X][cur.Y] +1 << '\n';
+                    endflag = true;
+                    break;
+                }
+                if(endflag == true) break;
+                if(dist_2[nx][ny] >= 0 || board[nx][ny] == '#') continue;
+                if(dist_1[nx][ny] != -1 && dist_1[nx][ny] <= dist_2[cur.X][cur.Y] + 1) continue;
+                dist_2[nx][ny] = dist_2[cur.X][cur.Y] + 1;
+                Q2.push({nx,ny});
+            }
+        }
+
+        if(!endflag) cout << "IMPOSSIBLE\n" ;
+
+
+
+    }
+
+
+
+}
