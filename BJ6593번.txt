@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int dx[6] = {1,0,-1,0,0,0};
+int dy[6] = {0,1,0,-1,0,0};
+int dz[6] = {0,0,0,0,-1,1};
+
+
+int l, r, c;
+
+
+
+
+
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    while(1){
+
+    char board[35][35][35];
+    int dist[35][35][35];
+    
+    queue<tuple<int, int, int>> Q;
+    bool escape = false;
+    cin >> l >> r >> c;
+
+    if(l == 0 && r == 0 && c == 0){
+        return 0;
+    }
+
+    for(int i = 0; i < l; i++)
+        for(int j = 0; j < r; j++){
+                fill(dist[i][j], dist[i][j] + c, -1);
+            }
+
+
+    for(int i = 0; i < l; i++)
+        for(int j = 0; j < r; j++)
+            for(int k = 0; k < c; k++){
+                cin >> board[i][j][k];
+                if(board[i][j][k] == 'S'){
+                    Q.push({i,j,k});
+                    dist[i][j][k] = 0;
+                }
+            }
+    while(!Q.empty()){
+        tuple<int, int, int> cur = Q.front(); Q.pop();
+        int curZ, curX, curY;
+        tie(curZ, curX, curY) = cur;
+
+        for(int dir = 0; dir < 6; dir++){
+            int nx = curX + dx[dir];
+            int ny = curY + dy[dir];
+            int nz = curZ + dz[dir];
+
+            if(nx < 0 || nx >= r || ny < 0 || ny >= c || nz < 0 || nz >= l) continue;
+            if(dist[nz][nx][ny] >= 0 || board[nz][nx][ny] == '#') continue;
+            //탈출구를 체크하기 전에 거리계산부터
+            dist[nz][nx][ny] = dist[curZ][curX][curY] + 1;
+            if(board[nz][nx][ny] == 'E'){
+                cout << "Escaped in " << dist[curZ][curX][curY] + 1 << " minute(s)." << '\n';
+                escape = true;
+                break;
+            }
+            if(escape) break;
+            Q.push({nz,nx,ny});
+        }
+
+    }
+    
+    while(!Q.empty()) Q.pop();
+    if(!escape) cout << "Trapped!" << '\n';
+    
+    }
+    
+
+
+
+
+}
