@@ -60,7 +60,7 @@ int main(){
             //탈출구를 체크하기 전에 거리계산부터
             dist[nz][nx][ny] = dist[curZ][curX][curY] + 1;
             if(board[nz][nx][ny] == 'E'){
-                cout << "Escaped in " << dist[curZ][curX][curY] + 1 << " minute(s)." << '\n';
+                cout << "Escaped in " << dist[nz][nx][ny] << " minute(s)." << '\n';
                 escape = true;
                 break;
             }
