@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int arr[9];
+
+int n = 9;
+
+int sum;
+
+pair<int ,int> p;
+void solve(){
+    for(int i = 0; i < n; i++){
+        for(int j = i + 1; j < n; j++){
+            if(sum - arr[i] - arr[j] == 100){
+                p = {i, j};
+                return;
+            }
+
+        }
+    }
+}
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    for(int i = 0; i < 9; i++) cin >> arr[i];
+
+    sum = accumulate(arr, arr + 9, 0);
+
+    sort(arr, arr + 9);
+
+    solve();
+
+    for(int i = 0; i < n; i++){
+        if(p.first == i || p.second == i) continue;
+        cout << arr[i] << '\n';
+    }
+
+    return 0;
+
+
+
+}
