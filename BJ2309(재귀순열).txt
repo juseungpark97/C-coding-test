@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n = 9, r = 7;
+
+int arr[9];
+void print(){
+    for(int i = 0; i < 7; i++) cout << arr[i] << '\n';
+    return;
+}
+
+void solve()
+{
+    int sum = 0;
+    for(int i = 0; i < 7; i++){
+        sum += arr[i];
+    }
+
+    if(sum == 100){
+        print();
+        exit(0);
+    }
+    return;
+}
+
+
+
+
+void makepermutation(int n, int r, int depth)
+{
+    if(r == depth){
+        solve();
+        return;
+    }
+
+    for(int i = depth; i < n; i++){
+        swap(arr[i], arr[depth]);
+        makepermutation(n, r, depth + 1);
+        swap(arr[i], arr[depth]);
+    }
+
+}
+
+
+
+int main()
+{
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    for(int i = 0; i < 9; i++)cin >> arr[i];
+
+    sort(arr, arr + 9);
+
+    makepermutation(n, r, 0);
+
+    
+
+
+
+}
