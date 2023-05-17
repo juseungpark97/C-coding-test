@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<char> v;
+string a, b;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
+    cin >> a;
+
+    char f, l;
+    for(char i : a) v.push_back(i);
+
+    reverse(v.begin(), v.end());
+
+    for(auto i = v.begin(); i < v.end(); i++){
+        b += *i;
+    }
+    if(a == b) cout << 1;
+    else if(a != b) cout << 0;
+
+    return 0;
+
+    
+
+
+
+}
