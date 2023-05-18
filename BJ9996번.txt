@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+
+int n;
+string pt, fn, fp, sp;
+
+vector<string> split(string input, string delimiter)
+{
+    vector<string> ret;
+    ll pos = 0;
+    string token ="";
+
+    while((pos = input.find(delimiter)) != string::npos)
+    {
+        token = input.substr(0, pos);
+        ret.push_back(token);
+        input.erase(0, pos + delimiter.length());
+    }
+    ret.push_back(input);
+    return ret;
+}
+
+void check(string fn)
+{
+        for(int i = 0; i < fp.size(); i++)
+        {
+            if((fn.size() < 2) || fp[i] != fn[i])
+            {
+                cout << "NE" << '\n';
+                return;
+            }
+        }
+        reverse(fn.begin(), fn.end());
+        reverse(sp.begin(), sp.end());
+
+        for(int i = 0; i < sp.size(); i++)
+        {
+            if((fn.size() < 2) || sp[i] != fn[i])
+            {
+                cout << "NE" << '\n';
+                reverse(sp.begin(), sp.end());
+                return;
+            }
+        }
+        cout << "DA" << '\n';
+        reverse(sp.begin(), sp.end());
+        return;
+}
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> n;
+    cin >> pt;
+
+    vector<string> v = split(pt,"*");
+
+    auto it = v.begin();
+
+    fp = *it;
+    it++;
+    sp = *it;
+    while(n--)
+    {
+        cin >> fn;
+        if(fn.size() < (fp.size() + sp.size())){
+            cout << "NE" << '\n';
+            continue;
+        }
+        check(fn);
+
+    }
+
+
+}
