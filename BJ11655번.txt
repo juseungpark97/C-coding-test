@@ -1,0 +1,55 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string s;
+vector<char> vc;
+
+
+void solve(char c)
+{
+    if(c == ' '){
+        vc.push_back(c);
+        return;
+    }
+    if(c >= 'a' && c <= 'z')
+    {
+        if(c > 'r')
+        {
+            c -= 26;
+            c += 13;
+            vc.push_back(c);
+            return;
+        }
+        
+        c += 13;
+        if(c > 122) c -= 26;
+        vc.push_back(c);
+    }
+    else if(c >= 'A' && c <= 'Z')
+    {
+        c += 13;
+        if(c > 90) c -= 26;
+        vc.push_back(c);
+    } else{
+        vc.push_back(c);
+    }
+    
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    getline(cin, s);
+
+    for(int i = 0; i < s.size(); i++)
+    {
+        solve(s[i]);
+    }
+
+    for(char i : vc) cout << i;
+    return 0;
+
+}
