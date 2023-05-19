@@ -79,3 +79,41 @@ int main()
 
 
 }
+
+/*
+#include <bits/stdc++.h>
+using namespace std;
+int n, pos;
+string pt, fn, firstpt, secondpt;
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> n;
+    cin >> pt;
+    pos = pt.find("*");
+    firstpt = pt.substr(0, pos);
+    secondpt = pt.substr(pos + 1);
+
+
+    for(int i = 0; i < n; i++)
+    {
+        cin >> fn;
+        if(firstpt.size() + secondpt.size() > fn.size()){
+            cout << "NE" << '\n';
+        } 
+        else if(firstpt == fn.substr(0, firstpt.size()) && secondpt == fn.substr(fn.size()-secondpt.size()))
+        {
+            cout << "DA" << '\n';
+
+        }
+        else cout << "NE" << '\n';
+    }
+    
+    
+
+}
+*/
