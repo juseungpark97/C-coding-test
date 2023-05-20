@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, cnt;
+string arr[100];
+char c;
+stack<char> st;
+
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    cin >> n;
+
+    for(int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+
+    for(int i = 0; i < n; i++)
+    {
+
+        for(int j = 0; j < arr[i].size(); j++)
+        {
+            c = arr[i][j];
+            if(st.size() == 0)
+            {
+                st.push(c);
+                continue;
+            } 
+            if(c == 'A' && st.top() != 0)
+            {
+                if(st.top() == c) st.pop();
+                else if(st.top() == 'B') st.push(c);
+            }
+            if(c == 'B' && st.top() != 0)
+            {
+                if(st.top() == c) st.pop();
+                else if(st.top() == 'A') st.push(c);
+            }
+        }
+        if(st.size() == 0)cnt++;
+        while(st.size() != 0) st.pop();
+    }
+    cout << cnt;
+
+
+ 
+
+}
