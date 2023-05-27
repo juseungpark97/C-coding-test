@@ -26,12 +26,7 @@ void BFS(int y, int x)
             int nx = s + dx[i];
 
             if(ny < 0 || ny >= n || nx < 0 || nx >= m) continue;
-            if(ny == n-1 && nx == m-1)
-            {
-                cout << visited[f][s] + 1 << '\n';
-                return;
-            }
-            if(board[ny][nx] == '0')continue;
+            if(board[ny][nx] == 0)continue;
             if(visited[ny][nx]) continue;
             visited[ny][nx] = visited[f][s] + 1;
             q.push({ny, nx});
@@ -43,17 +38,16 @@ void BFS(int y, int x)
 
 int main()
 {
-    cin >> n >> m;
-
+    scanf("%d %d", &n,&m);
     for(int i = 0; i < n; i++)
     {
-        cin >> s1;
         for(int j = 0; j < m; j++)
         {
-            board[i][j] = s1[j];
+            scanf("%1d", &board[i][j]);
         }
     }
     BFS(0, 0);
+    printf("%d",visited[n-1][m-1]);
 
 
 }
