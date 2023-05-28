@@ -9,9 +9,10 @@ int dy[4] = {-1, 0, 1, 0};
 
 vector<int> v;
 
-void DFS(int y, int x)
+int DFS(int y, int x)
 {
     visited[y][x] = 1;
+    int ret = 1;
 
     for (int i = 0; i < 4; i++)
     {
@@ -20,10 +21,9 @@ void DFS(int y, int x)
 
         if (ny < 0 || ny >= n || nx < 0 || nx >= m)continue;
         if (board[ny][nx] || visited[ny][nx])continue;
-        DFS(ny, nx);
+        ret += DFS(ny, nx);
     }
-    ret++;
-    return;
+    return ret;
 }
 
 int main()
@@ -47,15 +47,12 @@ int main()
         {
             if (!board[i][j] && !visited[i][j])
             {
-                ret = 0;
-                cnt++;
-                DFS(i, j);
-                v.push_back(ret);
+                v.push_back(DFS(i, j));
                 
             }
         }
     }
-    cout << cnt << '\n';
+    cout << v.size() << '\n';
     sort(v.begin(), v.end());
     for(int c : v) cout << c << " ";
 }
