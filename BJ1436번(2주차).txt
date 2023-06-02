@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int n, c, sum;
+string s;
+
+int main()
+{
+    cin >> n;
+    while(true)
+    {
+        if(n == c)
+        {
+            cout << sum <<'\n';
+            return 0;
+        }
+        sum++;
+        s = to_string(sum);
+        if(s.find("666") != string::npos) c++;
+    }
+
+}
