@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, m, arr[55][55];
+int result = 987654321;
+vector<vector<int>> chiken_list;
+vector<pair<int, int>> home, chiken;
+vector<int> v;
+
+
+void go(int start, vector<int> v)
+{
+    if(v.size() == m)
+    {
+        chiken_list.push_back(v);
+        return;
+    }
+
+    for(int i = start + 1; i < chiken.size(); i++)
+    {
+        v.push_back(i);
+        go(i, v);
+        v.pop_back();
+    }
+}
+
+int main()
+{
+    cin >> n >> m;
+
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < n; j++){
+            cin >> arr[i][j];
+            if(arr[i][j] == 1) home.push_back({i,j});
+            if(arr[i][j] == 2) chiken.push_back({i,j});
+        }
+    }
+
+    go(-1, v);
+    
+    for(auto cik : chiken_list)
+    {
+        
+        int ret = 0;
+        for(pair<int, int> h : home)
+        {
+            int _min = 987654321; 
+            for(int c : cik)
+            {
+                int _dist = abs(h.first - chiken[c].first) + abs(h.second - chiken[c].second);
+                _min = min(_min, _dist);
+            }
+            ret += _min;
+            
+        }
+        result = min(result, ret);
+    }
+    cout<< result << '\n';
+    
+}
