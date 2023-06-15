@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define next aaa
+#define prev aa
+
+const int MX = 200004;
+int visited[MX], prev[MX];
+vector<int> v;
+int n, k, ret;
+
+
+int main()
+{
+    cin >> n >> k;
+    visited[n] = 1;
+    queue<int> q;
+    q.push(n);
+    while(q.size())
+    {
+        int here = q.front(); q.pop();
+        if(here == k)
+        {
+            ret = visited[here];
+            break;
+        }
+        for(int next : {here - 1, here + 1, here * 2})
+        {
+            if(next < 0 || next > MX || visited[next])continue;
+            visited[next] = visited[here]+1;
+            prev[next] = here;
+            q.push(next);
+        }
+    }
+    for(int i = k; i != n; i = prev[i])
+    {
+        v.push_back(i);
+    }
+    v.push_back(n);
+    reverse(v.begin(), v.end());
+    cout << ret - 1 << '\n';
+    for(int b : v) cout << b << " ";
+    
+
+
+}
