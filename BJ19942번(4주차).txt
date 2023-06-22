@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+int mp, mf, ms, mu, n, ret = 987654321;
+int p, f, s, u, m;
+int arr[15][15];
+
+map<int, vector<vector<int>>> ret_v;
+
+int main()
+{
+    cin >> n >> mp >> mf >> ms >> mu;
+
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < 5; j++)
+        {
+            cin >> arr[i][j];
+        }
+    }
+
+    for(int i = 0; i < (1 << n); i++)
+    {
+        p = f = s = u = m = 0;
+        vector<int> v;
+        for(int j = 0; j < n; j++)
+        {
+            if(i & (1 << j))
+            {
+                v.push_back(j + 1);
+                p += arr[j][0];
+                f += arr[j][1];
+                s += arr[j][2];
+                u += arr[j][3];
+                m += arr[j][4];
+            }
+            
+        }
+        if(p >= mp && f >= mf && s >= ms && u >= mu)
+        {
+            if(ret >= m)
+            {
+                ret = m;
+                ret_v[ret].push_back(v);
+            }
+        }
+    }
+    if(ret == 987654321) cout << -1 << '\n';
+    else{
+        sort(ret_v[ret].begin(), ret_v[ret].end());
+        cout << ret << '\n';
+        for(int a : ret_v[ret][0]){
+            cout << a << " ";
+        }
+    }
+
+}
