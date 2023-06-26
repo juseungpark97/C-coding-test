@@ -1,0 +1,71 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+const int INF = -987654321;
+int n, m, cnt, big = INF, bang, mx = INF;
+int cntSize[2554], arr[54][54], visited[54][54];
+
+int dy[4] = {0, -1, 0, 1};
+int dx[4] = {-1, 0, 1, 0};
+
+int dfs(int y, int x)
+{
+    if(visited[y][x]) return 0;
+    visited[y][x] = cnt;
+    int ret = 1;
+    for(int i = 0; i < 4; i++)
+    {
+        if(!(arr[y][x] & (1 << i)))
+        {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+            ret += dfs(ny, nx);
+        }
+    }
+    return ret;
+}
+int main()
+{
+    cin >> m >> n;
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            cin >> arr[i][j];
+        }
+    }
+
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(visited[i][j] == 0)
+            {
+                cnt++;
+                cntSize[cnt] = dfs(i, j);
+                mx = max(mx, cntSize[cnt]);
+            }
+        }
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < m; j++){
+            if(i + 1 < n)
+            {
+                int a = visited[i][j];
+                int b = visited[i + 1][j];
+                if(a != b)
+                {
+                    big = max(big, cntSize[a] + cntSize[b]);
+                }
+            }
+            if(j + 1 < m)
+            {
+                int a = visited[i][j];
+                int b = visited[i][j + 1];
+                if(a != b)
+                {
+                    big = max(big, cntSize[a] + cntSize[b]);
+                }
+            }
+        }
+    }
+    cout << cnt << '\n' << mx << '\n' <<  big <<  '\n';
+    
+}
