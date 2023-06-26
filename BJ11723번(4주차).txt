@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+using namespace std;
+int m, n,arr[21];
+string s;
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    cin >> m;
+    for(int i = 0; i < m; i++)
+    {
+        cin >> s;
+        if(s == "empty")
+        {
+            memset(arr, 0, sizeof(arr));
+        }
+        else if(s == "all")
+        {
+            for(int i = 1; i <= 20; i++) arr[i] = i;
+        }
+        else if(s == "add")
+        {
+            cin >> n;
+            arr[n] = n;
+        }
+        else if(s == "check")
+        {
+            cin >> n;
+            if(arr[n] != 0) cout << 1 << '\n';
+            else cout << 0 << '\n';
+        }
+        else if(s == "remove")
+        {
+            cin >> n;
+            arr[n] = 0;
+        }
+        else if(s == "toggle")
+        {
+            cin >> n;
+            if(arr[n] != 0) arr[n] = 0;
+            else arr[n] = n;
+        }
+    }
+
+}
