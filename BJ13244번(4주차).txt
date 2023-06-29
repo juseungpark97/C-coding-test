@@ -1,0 +1,45 @@
+ #include <bits/stdc++.h>
+ using namespace std;
+
+int n, m, t, cnt, a, b;
+int visited[1004];
+vector<int> adj[1004];
+
+void dfs(int here)
+{
+    visited[here] = 1;
+    for(auto there : adj[here])
+    {
+        if(visited[there]) continue;
+        dfs(there);
+    }
+}
+ int main()
+ {
+    scanf("%d", &t);
+    while(t--)
+    {
+        for(int i = 0; i < 1004; i++) adj[i].clear();
+        fill(visited, visited + 1004, 0);
+        cnt = 0;
+        scanf("%d %d", &n, &m);
+        for(int i = 0; i < m; i++)
+        {
+            scanf("%d %d", &a, &b);
+            adj[b].push_back(a);
+            adj[a].push_back(b);
+        }
+        for(int i = 1; i <= n; i++)
+        {
+            if(!visited[i])
+            {
+                dfs(i);
+                cnt++;
+            }
+        }
+
+        if((n - 1) == m && cnt == 1) cout << "tree\n";
+        else cout << "graph\n";
+    }
+
+ }
