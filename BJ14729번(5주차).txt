@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+priority_queue<double> pq;
+int n;
+vector<double> v;
+double temp;
+int main()
+{
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%lf", &temp);
+        if(pq.size() == 7)
+        {
+            pq.push(temp);pq.pop();
+        } else
+        {
+            pq.push(temp);
+        }
+    }
+    while(pq.size())
+    {
+        v.push_back(pq.top());pq.pop();
+    }
+    reverse(v.begin(), v.end());
+
+    for(double b : v) printf("%.3lf\n", b);
+
+}
