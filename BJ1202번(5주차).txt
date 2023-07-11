@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll n, k, m, v, c, ret;
+
+int main()
+{
+    cin >> n >> k;
+    vector<pair<ll, ll>> vv(n);
+    vector<ll> b(k);
+    for(int i = 0; i < n; i++)
+    {
+        cin >> vv[i].first >> vv[i].second;
+    }
+    for(int i = 0; i < k; i++) cin >> b[i];
+    sort(vv.begin(), vv.end());
+    sort(b.begin(), b.end());
+
+    priority_queue<ll> qp;
+
+    int j = 0;
+    for(int i = 0; i < k; i++)
+    {
+        while(j < n && vv[j].first <= b[i]) qp.push(vv[j++].second);
+        if(qp.size())
+        {
+            ret += qp.top(); qp.pop();
+        }
+    }
+    cout << ret << '\n';
+
+}
